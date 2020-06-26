@@ -1,0 +1,61 @@
+/* Tab Nav #1 */
+.tab-icon-door {
+    width: 2.8125rem;
+    height: 2.8125rem;
+    fill: var(--main-grey)
+}
+
+/* Tab Nav #2 */
+.tab-icon-devices {
+    width: 9.6875rem;
+    height: 9.6875rem;
+    fill: var(--main-grey)
+}
+
+/* Tab Nav #3 */
+.tab-icon-prices {
+    width: 4.375rem;
+    height: 4.375rem;
+    fill: var(--main-grey)
+}
+
+/* Tabs */
+.tabs {
+    padding-top: 1rem;
+}
+
+.tab-nav-container {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    list-style: none;
+    color: var(--main-grey);
+    margin: 0 12%;
+}
+
+/* Tab Nav Bar Hover */
+
+ul li:hover {
+    color: white;
+    cursor: pointer;
+}
+
+ul li:hover svg path{
+    fill: white;
+}
+
+/* Active Tab */
+.active {
+    border-bottom: 4px solid #FF0136;
+}
+
+.tab-selected {
+    color: white;
+}
+
+.tab-selected svg path {
+    fill: white;
+}
