@@ -55,7 +55,7 @@ import mapStyles from './mapStyles';
                     <div>
                         <span style={{marginBottom: '2rem'}}>Find the best Movies in SF. Just type and Search!!!</span>
                         <br />
-                        <Button style={{marginTop: '2rem'}}>try it now</Button>
+                        <Button style={{marginTop: '2rem'}} id="search">try it now</Button>
                     </div>
                     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} options={options} onClick={onMapClick}
                     onLoad={onMapLoad}>

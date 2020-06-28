@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import logo from '../images/logo.png';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
 import { Icon } from 'react-icons-kit';
 import {Button} from './Button';
 import {ic_keyboard_arrow_right} from 'react-icons-kit/md/ic_keyboard_arrow_right'
-
+import { HashLink as Link } from 'react-router-hash-link';
 
 class Header extends Component {
     render() {
@@ -18,7 +17,7 @@ class Header extends Component {
                 <div className="header-content">
                     <Title>Find your Movies</Title>
                     <SubTitle>ALL OVER SAN FRANCISCO</SubTitle>
-                    <Button className="main-offer-btn" primary>TRY IT NOW
+                    <Button className="main-offer-btn" primary><Link to="/TabComponent">TRY IT NOW</Link>
                     <Icon className="Icon" icon={ic_keyboard_arrow_right} size={37} />
                     </Button>
                 </div>
