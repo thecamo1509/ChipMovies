@@ -1,68 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Backend
 
-## Available Scripts
+The Backend is located in the current repo in the branch " **backend** " structured in two phases:
+- Fetching the initial Data from the [SF Movies API](https://data.sfgov.org/resource/yitu-d5am.json)
+- Parsing the data
+- Creating the GraphQL Api 
+- Mapping the necessary data to the DataBase.
 
-In the project directory, you can run:
+## Technologies Used
 
-### `npm start`
+- Sequalized ORM
+- GraphQL
+- 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The Data looks initially like this: 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    [
+	    {
+        "title": "180",
+        "release_year": "2011",
+        "locations": "555 Market St.",
+        "production_company": "SPI Cinemas",
+        "director": "Jayendra",
+        "writer": "Umarji Anuradha, Jayendra, Aarthi Sriram, & Suba",
+        "actor_1": "Siddarth",
+        "actor_2": "Nithya Menon",
+        "actor_3": "Priya Anand"
+	    }, ...
+    ]
+However the only attributes I needed to generate the map markers are the title and the location where the movie is being presented. For that reason I created a node.js that parses this data and turns it into something like this:
 
-### `npm test`
+    [
+	    {
+        "title": "180",
+        "locations": "555 Market St."
+	    }, ...
+    ]
+Now I have the data I need to feed the database. 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## GraphQL API
 
-### `npm run build`
+My Custom API's url is [https://chipmovies.herokuapp.com/](https://chipmovies.herokuapp.com/) and it allows:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Queries**: The queries included in this API allow to get all the Movies with the following query structure:
+	- allMovies: Get all Movies from the database
+	- movie: Get the movie object depending on the ID
+- **Mutation**: The mutations included:
+	- createMovie: Creates a new movie from the title and location attributes
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Set Up your Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1- Git Clone the Repo
+2- Run `npm install` to install the required packages
+3- Run `npm start` to run the project in your localhost
+4- Your browser will be popped up on localhost:3000
 
-### `npm run eject`
+# How it Works
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+In order to use the service it is simple, just go to the project url.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You will see something like this:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![enter image description here](https://i.ibb.co/k4ZBHZq/Whats-App-Image-2020-06-28-at-3-57-22-PM.jpg)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The button will lead the user to the main functionality which is the movie filtering and location on the map:
 
-## Learn More
+Just type the movie you want to select and the select the autocomplete input.  this way:
+![enter image description here](https://i.ibb.co/GcfBzPH/Whats-App-Image-2020-06-28-at-5-54-18-PM.jpg)
+And then click Search.
+This will generate different markers on the addresses where the movies are presented in SanFrancisco. Click on the any marker to see the address where it is going to be shown.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![enter image description here](https://i.ibb.co/Df4fK3x/Whats-App-Image-2020-06-28-at-5-55-08-PM-1.jpg)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### And That's it!
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

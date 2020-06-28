@@ -5,6 +5,7 @@ import { Icon } from 'react-icons-kit';
 import {Button} from './Button';
 import {ic_keyboard_arrow_right} from 'react-icons-kit/md/ic_keyboard_arrow_right'
 import { HashLink as Link } from 'react-router-hash-link';
+import { ScrollTo } from 'react-scroll-to';
 
 class Header extends Component {
     render() {
@@ -17,9 +18,10 @@ class Header extends Component {
                 <div className="header-content">
                     <Title>Find your Movies</Title>
                     <SubTitle>ALL OVER SAN FRANCISCO</SubTitle>
-                    <Button className="main-offer-btn" primary><Link to="/TabComponent">TRY IT NOW</Link>
-                    <Icon className="Icon" icon={ic_keyboard_arrow_right} size={37} />
-                    </Button>
+                    <ScrollTo>
+                    {({ scroll }) => (
+                        <Button className="main-offer-btn" primary onClick={() => scroll({ x: 20, y: 550, smooth: true })}><Link to="/TabComponent">TRY IT NOW</Link><Icon className="Icon" icon={ic_keyboard_arrow_right} size={37} /></Button>)}
+                    </ScrollTo>
                 </div>
             </HeaderComponent>
         )

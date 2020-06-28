@@ -5,6 +5,8 @@ import TabDevices from './tabs_nav/TabDevices';
 import TabPrices from './tabs_nav/TabPrices';
 import '../css/TabsNav.css'
 import TabContentOne from './tabContentOne';
+import TabContentTwo from './tabContentTwo';
+import TabContentThree from './tabContentThree';
 
 class TabComponent extends Component {
     state = {
@@ -21,16 +23,22 @@ class TabComponent extends Component {
                         </Tab>
                         <Tab className={`${this.state.tabIndex === 1 ? 'active tab-selected' : null}`}>
                             <TabDevices />
-                            <p style={{marginTop: '-5.3125rem'}}><strong>En Tu Barrio <br/> Pela</strong></p>
+                            <p style={{marginTop: '-5.3125rem'}}><strong>Watch some of the<br/> titles we have for you</strong></p>
                         </Tab>
                         <Tab className={`${this.state.tabIndex === 2 ? 'active tab-selected' : null}`}>
                             <TabPrices />
-                            <p><strong>Holiwi esto es una <br/> Prueba</strong></p>
+                            <p><strong>We are creating gret stuff <br/> Coming Soon</strong></p>
                         </Tab>
                     </TabList>
                     {/* Tabs Content */}
                     <TabPanel>
                         <TabContentOne />
+                    </TabPanel>
+                    <TabPanel>
+                        <TabContentTwo />
+                    </TabPanel>
+                    <TabPanel>
+                        <TabContentThree />
                     </TabPanel>
                 </Tabs>
             </div>

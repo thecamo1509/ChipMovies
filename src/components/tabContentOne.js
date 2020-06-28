@@ -60,6 +60,7 @@ import Geocode from "react-geocode";
         const mapRef = React.useRef();
         const onMapLoad = React.useCallback((map) => {
             mapRef.current = map;
+            flag = true;
         }, []);
 
         if (loadError) return "Error loading Maps";
@@ -105,35 +106,39 @@ import Geocode from "react-geocode";
             } flag = false;
         }
 
-        request ();
+        request();
+        
         function getLocations () {
             if (value.length === 0) {
                 setValue(dataList)
+            } else {
+                let object = dataList.filter((mydata) => {
+                    return mydata.title === value
+                })
+                object[0].locations.map(async coordinates => {
+                    // Get latidude & longitude from address.
+                    Geocode.fromAddress(coordinates).then(
+                        response => {
+                        const { lat, lng } = response.results[0].geometry.location;
+                        setMarkers(current => [...current, {
+                            lat: lat,
+                            lng: lng,
+                            address: coordinates
+                        }])
+                        },
+                        error => {
+                        console.error(error);
+                        }
+                    );
+                })
             }
-            let object = dataList.filter((mydata) => {
-                return mydata.title === value
-            })
-            object[0].locations.map(async coordinates => {
-                // Get latidude & longitude from address.
-                Geocode.fromAddress(coordinates).then(
-                    response => {
-                    const { lat, lng } = response.results[0].geometry.location;
-                    setMarkers(current => [...current, {
-                        lat: lat,
-                        lng: lng,
-                        address: coordinates
-                    }])
-                    },
-                    error => {
-                    console.error(error);
-                    }
-                );
-            })
         }
 
         const onChangeHandler = (event, value) => {
             if (value) {
                 setValue(value);
+            } else {
+                setMarkers([]);
             }
           }; 
 
@@ -183,7 +188,7 @@ import Geocode from "react-geocode";
 
                          {selected ? (<InfoWindow position={{lat: selected.lat, lng: selected.lng}}>
                              <div>
-                                <h2>Address</h2>
+                                <h2>Watch it at:</h2>
                                 <p>{selected.address}</p>
                              </div>
                          </InfoWindow>) : null}
