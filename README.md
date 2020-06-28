@@ -10,7 +10,7 @@ The Backend is located in the current repo in the branch " **backend** " structu
 
 - Sequalized ORM
 - GraphQL
-- 
+- Apollo Server
 
 The Data looks initially like this: 
 
