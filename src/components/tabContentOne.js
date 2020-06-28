@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import Img from '../images/tab-1-pic.png';
+import React from 'react'
 import styled from 'styled-components';
 import {Button} from './Button';
 import {
@@ -9,37 +8,55 @@ import {
     InfoWindow,
   } from '@react-google-maps/api';
 import mapStyles from './mapStyles';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors';
+import ApolloClient from 'apollo-boost';
+import { gql } from "apollo-boost";
+import Geocode from "react-geocode";
 
+    const client = new ApolloClient({
+        uri: 'https://chipmovies.herokuapp.com/',
+    });
 
-  const libraries = ["places"];
-  const mapContainerStyle = {
-      width:'40vw',
-      height: '40vh',
-  };
+    let flag = true;
 
-  const center = {
-    lat: 37.7790262,
-    lng: -122.4199061
-  };
+    const libraries = ["places"];
+    const mapContainerStyle = {
+        width:'40vw',
+        height: '40vh',
+    };
+
+    const center = {
+        lat: 37.7790262,
+        lng: -122.4199061
+    };
   
-  const options = {
-      styles: mapStyles,
-      disableDefaultUI: true,
-      zoomControl: true
-  }
+    const options = {
+        styles: mapStyles,
+        disableDefaultUI: true,
+        zoomControl: true
+    }
+
+  const theme = createMuiTheme({
+    palette: {
+      primary: red
+    }
+  });
+  
+
+
     export default function TabContentOne() {
         const {isLoaded, loadError} = useLoadScript({googleMapsApiKey: 'AIzaSyDVZX5uMn2r-7VV18ldAZ4nKj8Pp6YeHfw',
             libraries,});
         const [markers, setMarkers] =  React.useState([]);
+        const [dataList, setDataList] = React.useState([]);
+        const [value, setValue] = React.useState("");
         const [selected, setSelected] = React.useState(null);
-        const onMapClick = React.useCallback((event) => {
-            setMarkers(current => [...current, {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
-                time: new Date(),
-            }])
-        }, []);
 
+
+        Geocode.setApiKey("AIzaSyDVZX5uMn2r-7VV18ldAZ4nKj8Pp6YeHfw");
         const mapRef = React.useRef();
         const onMapLoad = React.useCallback((map) => {
             mapRef.current = map;
@@ -48,19 +65,110 @@ import mapStyles from './mapStyles';
         if (loadError) return "Error loading Maps";
         if (!isLoaded) return "Loading";
 
+        /* Fetching the data from my custom GraphQL */
+        function request () {
+            if (flag) {
+                client
+                .query({
+                    query: gql`
+                    {
+                        allMovies {
+                        title
+                        locations
+                        }
+                    }
+                    `
+                })
+                .then(function (result) {
+                    var movies = result.data.allMovies;
+                    var titles = [];
+                    for (let i = 0; i < movies.length; i++) {
+                        const movie = movies[i];
+                        if (!titles.includes(movie.title)) {
+                            titles.push(movie.title)
+                        }
+                    }
+                    const finalList = []
+                    for (let j = 0; j < titles.length; j++) {
+                        const title = titles[j];
+                        var ubicaciones = movies.filter((data) => {
+                            return data.title === title
+                            })
+                        const loquesea = ubicaciones.map(data => {
+                            return data.locations
+                        })
+                        const uniques = [...new Set(loquesea)]
+                        finalList.push({title: title, locations: uniques})
+                    }
+                    setDataList(finalList);
+                });
+            } flag = false;
+        }
+
+        request ();
+        function getLocations () {
+            if (value.length === 0) {
+                setValue(dataList)
+            }
+            let object = dataList.filter((mydata) => {
+                return mydata.title === value
+            })
+            object[0].locations.map(async coordinates => {
+                // Get latidude & longitude from address.
+                Geocode.fromAddress(coordinates).then(
+                    response => {
+                    const { lat, lng } = response.results[0].geometry.location;
+                    setMarkers(current => [...current, {
+                        lat: lat,
+                        lng: lng,
+                        address: coordinates
+                    }])
+                    },
+                    error => {
+                    console.error(error);
+                    }
+                );
+            })
+        }
+
+        const onChangeHandler = (event, value) => {
+            if (value) {
+                setValue(value);
+            }
+          }; 
+
+        console.log(value)
+
         return (
             <TabContentContainer>
             <div className="container">
                 <div class="tab-content">
                     <div>
-                        <span style={{marginBottom: '2rem'}}>Find the best Movies in SF. Just type and Search!!!</span>
+                        <span style={{marginBottom: '2rem'}}>Find the best Movies in SF, Just type and Search!!!</span>
                         <br />
-                        <Button style={{marginTop: '2rem'}} id="search">try it now</Button>
+                        <Autocomplete
+                            onChange={onChangeHandler}
+                            id="free-solo-2-demo"
+                            disableClearable
+                            options={dataList.map((option) => option.title)}
+                            renderInput={(params) => (
+                                <ThemeProvider theme={theme}>
+                                <TextField
+                                    {...params}
+                                    label="Search your Movie"
+                                    margin="normal"
+                                    variant="outlined"
+                                    style= {{ background: 'rgba(255, 255, 255, 0.95)', borderRadius: 5}}
+                                    InputProps={{ ...params.InputProps, type: 'search' }}
+                                />
+                            </ThemeProvider>
+                            )}
+                        />
+                        <Button style={{marginTop: '2rem'}} id="search" onClick={getLocations}>Search</Button>
                     </div>
-                    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} options={options} onClick={onMapClick}
+                    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} options={options}
                     onLoad={onMapLoad}>
                         {markers.map(marker => <Marker 
-                        key={marker.time.toISOString} 
                         position={{ lat: marker.lat, lng: marker.lng }}
                         icon={{
                             url: '/marker.svg',
@@ -75,8 +183,8 @@ import mapStyles from './mapStyles';
 
                          {selected ? (<InfoWindow position={{lat: selected.lat, lng: selected.lng}}>
                              <div>
-                                 <h2>Testing</h2>
-                         <p>Spotted at test hour</p>
+                                <h2>Address</h2>
+                                <p>{selected.address}</p>
                              </div>
                          </InfoWindow>) : null}
                     </GoogleMap>
@@ -107,5 +215,13 @@ const TabContentContainer = styled.div`
         align-items: center;
         font-size: 2rem;
         padding:  2.5rem;
+    }
+
+    h2 {
+        color: #000
+    }
+
+    p {
+        color: #000
     }
 `;
