@@ -1,3 +1,4 @@
+// Map Styling for google maps, Dark Mode
 export default [
     {
         "featureType": "all",

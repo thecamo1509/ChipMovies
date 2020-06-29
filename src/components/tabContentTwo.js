@@ -5,6 +5,8 @@ import smile from '../images/smilelikeyours.png'
 import fiftydates from '../images/50firstdates.png'
 import fourtydays from '../images/40days.png'
 
+
+// Second Panel Component from the available tabs
 function tabContentTwo() {
     return (
         <TabContainer>

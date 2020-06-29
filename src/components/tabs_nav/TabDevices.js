@@ -1,5 +1,6 @@
 import React from 'react'
 
+//SVG for the movies section
 export default function TabDevices() {
     return (
         <svg class="tab-icon-devices" viewBox="0 0 24 48" version="1.1" xmlns="http://www.w3.org/2000/svg">

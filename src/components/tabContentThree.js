@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components';
 import ComingSoon from '../images/comingsoon.png'
 
+
+//Third Panel Component from the available tabs
 function tabContentThree() {
     return (
         <TabContainerThree>

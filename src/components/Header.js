@@ -7,6 +7,7 @@ import {ic_keyboard_arrow_right} from 'react-icons-kit/md/ic_keyboard_arrow_righ
 import { HashLink as Link } from 'react-router-hash-link';
 import { ScrollTo } from 'react-scroll-to';
 
+/* Header Component, includes subcomponents with */
 class Header extends Component {
     render() {
         return (

@@ -1,5 +1,6 @@
 import React from 'react'
 
+//SVG for the comingsoon section
 export default function TabPrices() {
     return (
         <svg version="1.1" id="Layer_1" class="tab-icon-prices" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

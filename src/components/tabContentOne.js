@@ -16,6 +16,8 @@ import ApolloClient from 'apollo-boost';
 import { gql } from "apollo-boost";
 import Geocode from "react-geocode";
 
+
+    // Apollo Client to make the queries to
     const client = new ApolloClient({
         uri: 'https://chipmovies.herokuapp.com/',
     });
@@ -23,23 +25,28 @@ import Geocode from "react-geocode";
     let flag = true;
 
     const libraries = ["places"];
+    
+    //Styles for the Map Container
     const mapContainerStyle = {
         width:'40vw',
         height: '40vh',
     };
 
+    // Initial coordinates that the Map renders
     const center = {
         lat: 37.7790262,
         lng: -122.4199061
     };
   
+    // Options passed to the GoogleMap Component
     const options = {
         styles: mapStyles,
         disableDefaultUI: true,
         zoomControl: true
     }
 
-  const theme = createMuiTheme({
+    // Override Material UI's default theme
+    const theme = createMuiTheme({
     palette: {
       primary: red
     }
@@ -58,6 +65,8 @@ import Geocode from "react-geocode";
 
         Geocode.setApiKey("AIzaSyDVZX5uMn2r-7VV18ldAZ4nKj8Pp6YeHfw");
         const mapRef = React.useRef();
+
+        // Function that checks that the map is rendered
         const onMapLoad = React.useCallback((map) => {
             mapRef.current = map;
             flag = true;
@@ -79,7 +88,7 @@ import Geocode from "react-geocode";
                         }
                     }
                     `
-                })
+                })// Transforming locations attribute from text into a list of addresses for each movie
                 .then(function (result) {
                     var movies = result.data.allMovies;
                     var titles = [];
@@ -92,22 +101,22 @@ import Geocode from "react-geocode";
                     const finalList = []
                     for (let j = 0; j < titles.length; j++) {
                         const title = titles[j];
-                        var ubicaciones = movies.filter((data) => {
+                        var addresses = movies.filter((data) => {
                             return data.title === title
                             })
-                        const loquesea = ubicaciones.map(data => {
+                        const locationList = addresses.map(data => {
                             return data.locations
                         })
-                        const uniques = [...new Set(loquesea)]
+                        const uniques = [...new Set(locationList)]
                         finalList.push({title: title, locations: uniques})
                     }
                     setDataList(finalList);
                 });
             } flag = false;
         }
-
         request();
-        
+
+        // Function to transform addresses into coordinates and set the markers on the map
         function getLocations () {
             if (value.length === 0) {
                 setValue(dataList)
@@ -134,6 +143,7 @@ import Geocode from "react-geocode";
             }
         }
 
+        // Function Handler which sets the value of the input searchbar and initialize the markers in empty
         const onChangeHandler = (event, value) => {
             if (value) {
                 setValue(value);

@@ -56,7 +56,7 @@ My Custom API's url is [https://chipmovies.herokuapp.com/](https://chipmovies.he
 
 # How it Works
 
-In order to use the service it is simple, just go to the project url.
+In order to use the service it is simple, just go to the [project url.](https://chipmovie.herokuapp.com/).
 
 You will see something like this:
 

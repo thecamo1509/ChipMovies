@@ -8,6 +8,7 @@ import TabContentOne from './tabContentOne';
 import TabContentTwo from './tabContentTwo';
 import TabContentThree from './tabContentThree';
 
+// Second Main Section
 class TabComponent extends Component {
     state = {
         tabIndex: 0
