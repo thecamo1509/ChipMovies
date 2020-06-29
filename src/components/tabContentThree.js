@@ -10,7 +10,7 @@ function tabContentThree() {
         <div>
             <div className="tab-content">
                 <div className="tab-top-content">
-                    <span style={{ fontSize: '1.5rem'}}>Stay in touch, we still have great things for you</span>
+                    <span style={{ fontSize: '1.5rem'}}>Stay in touch, we still working on creating great things for you</span>
                 </div>
                 {/* Tab Bottom Content */}
                 <div className="tab-bottom-content">

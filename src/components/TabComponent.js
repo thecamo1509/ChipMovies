@@ -28,7 +28,7 @@ class TabComponent extends Component {
                         </Tab>
                         <Tab className={`${this.state.tabIndex === 2 ? 'active tab-selected' : null}`}>
                             <TabPrices />
-                            <p><strong>We are creating gret stuff <br/> Coming Soon</strong></p>
+                            <p><strong>We are creating great stuff <br/> Coming Soon</strong></p>
                         </Tab>
                     </TabList>
                     {/* Tabs Content */}
