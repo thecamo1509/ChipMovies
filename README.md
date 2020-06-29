@@ -1,8 +1,8 @@
 # Welcome to ChipMovies!
 
-Hi! this project is the interactive solution to the **Chiper-Inc** Technical Interview. ChipMovies is the solution to the SF movies challenge. Let's take a quick look at it:
+Hi! this project is the interactive solution to the **Chiper-Inc** Technical Interview. ChipMovies is the solution to the SF movies challenge. The Objective of the challenge was to fetch data from an external API and set an app that renders Let's take a quick look at it:
 
-![enter image description here](https://i.ibb.co/k4ZBHZq/Whats-App-Image-2020-06-28-at-3-57-22-PM.jpg)
+![enter image description here](https://i.ibb.co/23Xqzd7/Group-1-2.png)
 
 The project is composed in two parts:
  - **Backend** in the branch " **backend** " 
