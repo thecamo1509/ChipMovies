@@ -1,3 +1,28 @@
+# Welcome to ChipMovies!
+
+Hi! this project is the interactive solution to the **Chiper-Inc** Technical Interview. ChipMovies is the solution to the SF movies challenge. Let's take a quick look at it:
+
+![enter image description here](https://i.ibb.co/k4ZBHZq/Whats-App-Image-2020-06-28-at-3-57-22-PM.jpg)
+
+The project is composed in two parts:
+ - **Backend** in the branch " **backend** " 
+ -  **Frontend** in the branch "**frontend**"
+# Frontend
+
+For the Frontend I decided to use React Js in order to create a modern and scalable app that allowed to modify specific components and features without pain. In order to extend React functionalities I decided to install the following packages:
+
+- React-Router 
+- Styled Components  
+- React-icons-kit  
+- react-tabs  
+- React-googl-maps/api  
+- Material Ui  
+- Apollo  
+- React-Scroll-to  
+- Axios
+
+I also used some third party API's such as Google Maps API and GeoCode API. 
+
 # Backend
 
 The Backend is located in the current repo in the branch " **backend** " structured in two phases:
@@ -10,7 +35,7 @@ The Backend is located in the current repo in the branch " **backend** " structu
 
 - Sequalized ORM
 - GraphQL
-- Apollo Server
+- 
 
 The Data looks initially like this: 
 
@@ -56,7 +81,7 @@ My Custom API's url is [https://chipmovies.herokuapp.com/](https://chipmovies.he
 
 # How it Works
 
-In order to use the service it is simple, just go to the [project url.](https://chipmovie.herokuapp.com/).
+In order to use the service it is simple, just go to the [project url.](https://chipmovie.herokuapp.com/)
 
 You will see something like this:
 
@@ -72,4 +97,3 @@ This will generate different markers on the addresses where the movies are prese
 ![enter image description here](https://i.ibb.co/Df4fK3x/Whats-App-Image-2020-06-28-at-5-55-08-PM-1.jpg)
 
 ### And That's it!
-
