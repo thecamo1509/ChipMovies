@@ -54,7 +54,7 @@ import Geocode from "react-geocode";
   
 
 
-    export default function TabContentOne() {
+    export default function TabContentOne(props) {
         const {isLoaded, loadError} = useLoadScript({googleMapsApiKey: 'AIzaSyDVZX5uMn2r-7VV18ldAZ4nKj8Pp6YeHfw',
             libraries,});
         const [markers, setMarkers] =  React.useState([]);
@@ -63,17 +63,24 @@ import Geocode from "react-geocode";
         const [selected, setSelected] = React.useState(null);
 
 
+        if (props.selected === true && props.focus === false) {
+            console.log("Funcionó");
+        }
+
         Geocode.setApiKey("AIzaSyDVZX5uMn2r-7VV18ldAZ4nKj8Pp6YeHfw");
         const mapRef = React.useRef();
 
         // Function that checks that the map is rendered
         const onMapLoad = React.useCallback((map) => {
             mapRef.current = map;
-            flag = true;
         }, []);
 
         if (loadError) return "Error loading Maps";
         if (!isLoaded) return "Loading";
+
+        if (dataList.length === 0) {
+            flag = true;
+        }
 
         /* Fetching the data from my custom GraphQL */
         function request () {
